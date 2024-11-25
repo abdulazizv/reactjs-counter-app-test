@@ -104,9 +104,9 @@ export default function BeautifulClicker() {
       isDarkMode 
         ? 'bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900' 
         : 'bg-gradient-to-br from-purple-400 via-pink-500 to-red-500'
-    } flex flex-col items-center justify-center p-4`}>
+    } flex flex-col items-center justify-start pt-20 p-4 relative pb-40 sm:pb-4 sm:justify-center`}>
       {/* Theme and Language Controls */}
-      <div className="absolute top-4 right-4 flex gap-4">
+      <div className="absolute top-4 right-4 flex gap-4 z-10">
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -156,7 +156,7 @@ export default function BeautifulClicker() {
         whileTap={{ scale: 0.95 }}
         onClick={() => setShowHistory(prev => !prev)}
         className="absolute top-4 left-4 bg-white bg-opacity-20 backdrop-blur-lg text-white rounded-full p-2.5 
-          shadow-lg hover:bg-opacity-30 transition-all duration-300
+          shadow-lg hover:bg-opacity-30 transition-all duration-300 z-10
           focus:outline-none focus:ring-2 focus:ring-purple-400"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -174,7 +174,7 @@ export default function BeautifulClicker() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -100 }}
             className="absolute left-4 top-20 bg-white bg-opacity-20 backdrop-blur-lg rounded-3xl p-4 
-              shadow-xl text-white max-w-xs w-full"
+              shadow-xl text-white max-w-xs w-full z-20"
           >
             <h3 className="text-lg font-semibold mb-3">History</h3>
             <div className="space-y-2 max-h-60 overflow-y-auto">
@@ -196,7 +196,7 @@ export default function BeautifulClicker() {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
-            className="absolute top-20 bg-yellow-400 text-purple-900 px-6 py-3 rounded-full font-bold shadow-lg"
+            className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-purple-900 px-6 py-3 rounded-full font-bold shadow-lg z-30"
           >
             🎉 Milestone: 33! 🎉
           </motion.div>
@@ -207,7 +207,7 @@ export default function BeautifulClicker() {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
-        className="bg-white bg-opacity-20 backdrop-blur-lg rounded-3xl p-4 sm:p-6 md:p-8 w-full max-w-sm mx-auto shadow-xl"
+        className="bg-white bg-opacity-20 backdrop-blur-lg rounded-3xl p-4 sm:p-6 md:p-8 w-full max-w-sm mx-auto shadow-xl relative z-10"
       >
         {(!isWordSubmitted || isEditing) ? (
           <motion.form 
@@ -258,69 +258,69 @@ export default function BeautifulClicker() {
             >
               {count}
             </motion.h1>
-            <div className="space-y-3">
+            
+            {/* Mobile Buttons Container */}
+            <div className="block sm:hidden">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={incrementCount}
-                className={`
-                  w-full bg-white text-purple-600 font-semibold
-                  transition duration-300 ease-in-out break-words
-                  focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-75
-                  
-                  /* Mobile Styles */
-                  fixed bottom-8 left-1/2 -translate-x-1/2
+                className="fixed bottom-24 left-1/2 -translate-x-1/2 
                   h-24 w-24 rounded-full shadow-lg
                   flex items-center justify-center
                   text-base leading-tight
                   bg-gradient-to-br from-white to-purple-100
-                  active:shadow-inner
-                  
-                  /* Tablet and Desktop Styles */
-                  sm:static sm:transform-none
-                  sm:h-auto sm:w-full sm:rounded-full
-                  sm:py-2 sm:px-6
-                  sm:text-lg sm:bg-white
-                  sm:shadow-md sm:hover:bg-opacity-90
-                  sm:flex sm:items-center sm:justify-center
-                  
-                  /* Animation class */
-                  animate-pulse-subtle
-                `}
+                  text-purple-600 font-semibold
+                  active:shadow-inner z-50
+                  animate-pulse-subtle"
               >
-                <span className="max-w-full px-2 text-center">
+                <span className="max-w-full px-2 text-center break-words">
                   {userWord}
                 </span>
               </motion.button>
+
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleEdit}
-                className={`
-                  w-full font-semibold
-                  transition duration-300 ease-in-out
-                  focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-75
-                  
-                  /* Mobile Styles */
-                  fixed bottom-8 right-4
+                className="fixed bottom-24 right-4
                   h-12 w-12 rounded-full
                   flex items-center justify-center
-                  bg-purple-600 text-white
-                  shadow-lg
-                  
-                  /* Tablet and Desktop Styles */
-                  sm:static
-                  sm:h-auto sm:w-full sm:rounded-full
-                  sm:py-2 sm:px-6
-                  sm:text-lg
-                  sm:bg-purple-600 sm:text-white
-                  sm:shadow-md sm:hover:bg-opacity-90
-                `}
+                  bg-purple-600 text-white font-semibold
+                  shadow-lg z-50"
               >
-                <span className="sm:block hidden">{t.editButton}</span>
-                <svg className="w-6 h-6 sm:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                 </svg>
+              </motion.button>
+            </div>
+
+            {/* Desktop Buttons Container */}
+            <div className="hidden sm:block space-y-3">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={incrementCount}
+                className="w-full bg-white text-purple-600 font-semibold
+                  py-3 px-6 rounded-full text-lg
+                  shadow-md hover:bg-opacity-90
+                  transition duration-300 ease-in-out
+                  focus:outline-none focus:ring-2 focus:ring-purple-400"
+              >
+                {userWord}
+              </motion.button>
+
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleEdit}
+                className="w-full bg-purple-600 text-white font-semibold
+                  py-3 px-6 rounded-full text-lg
+                  shadow-md hover:bg-opacity-90
+                  transition duration-300 ease-in-out
+                  focus:outline-none focus:ring-2 focus:ring-purple-400"
+              >
+                {t.editButton}
               </motion.button>
             </div>
           </>
